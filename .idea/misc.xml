@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/drawable/ic_close_black_24dp.xml" value="0.1825" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/layout/activity_add_song.xml" value="0.21" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/layout/activity_main.xml" value="0.2111111111111111" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/layout/activity_song_info.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/layout/custom_layout.xml" value="0.1712962962962963" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/layout/music_notif.xml" value="0.17395833333333333" />
+        <entry key="..\:/Users/Yaniv/Desktop/Studies/android 2/LAST/app/src/main/res/layout/song_cell.xml" value="0.18802083333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
