@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSongLongClicked(int position, View view) {
+
             }
         });
 
@@ -139,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 int fromPos = viewHolder.getAdapterPosition();
                 int toPos = target.getAdapterPosition();
                 Collections.swap(playList, fromPos, toPos);
+                updatePlaylist();
+
                 recyclerView.getAdapter().notifyItemMoved(fromPos,toPos);
                 return false;
             }
@@ -161,11 +164,11 @@ public class MainActivity extends AppCompatActivity {
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                uploadPlaylist();
                                 songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                             }
                         })
                         .show();
+                updatePlaylist();
             }
         };
 
