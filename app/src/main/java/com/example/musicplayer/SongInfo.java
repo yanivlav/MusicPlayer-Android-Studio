@@ -49,9 +49,9 @@ public class SongInfo extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SongInfo.this, MainActivity.class);
-                startActivity(intent);
-//                finish();
+//                Intent intent = new Intent(SongInfo.this, MainActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
     }

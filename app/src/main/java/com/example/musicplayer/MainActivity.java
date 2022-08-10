@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(MainActivity.this,MusicServiceNew.class);
-                intent.putExtra("names",names);
-                intent.putExtra("links",links);
+//                intent.putExtra("names",names);
+//                intent.putExtra("links",links);
                 intent.putExtra("command","new_instance");
                 //?
                 intent.putExtra("current",position);
@@ -157,19 +157,25 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 playList.remove(viewHolder.getAdapterPosition());
-                                songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                                 updatePlaylist();
+                                songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+//                                songAdapter.notifyDataSetChanged();
+
+
 
 
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                songAdapter.notifyDataSetChanged();//=============================
                                 songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+
                             }
                         })
                         .show();
-                updatePlaylist();
+//                updatePlaylist();
+//                uploadPlaylist();
             }
         };
 

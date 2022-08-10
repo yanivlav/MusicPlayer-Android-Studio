@@ -33,8 +33,8 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
     ArrayList<Song> playList ;
 
 
-    ArrayList<String> links;
-    ArrayList<String> names ;
+//    ArrayList<String> links;
+//    ArrayList<String> names ;
     int currentPlaying = 0;
 
     final int NOTIF_ID = 1;
@@ -112,13 +112,13 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
         switch (command) {
             case "new_instance":
                 if(!mediaPlayer.isPlaying()) {
-                    links = intent.getStringArrayListExtra("links");
-                    names = intent.getStringArrayListExtra("names");
+//                    links = intent.getStringArrayListExtra("links");
+//                    names = intent.getStringArrayListExtra("names");
                     currentPlaying = intent.getIntExtra("current",0);
                     String s = playList.get(currentPlaying).getName();
                     changeNotificationView(s);
                     try {
-                        mediaPlayer.setDataSource(links.get(currentPlaying));
+                        mediaPlayer.setDataSource(playList.get(currentPlaying).getLink());
                         mediaPlayer.prepareAsync();
 //                        uploadPlaylist();
 //                        changeNotificationView(names.get(currentPlaying));
@@ -175,19 +175,22 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
     }
 
     private void playSong(boolean isNext)  {
+
+        uploadPlaylist();
+
         if(isNext) {
             currentPlaying++;
-            if (currentPlaying == links.size())
+            if (currentPlaying == playList.size())
                 currentPlaying = 0;
         }
         else {
             currentPlaying--;
             if(currentPlaying < 0)
-                currentPlaying = links.size() - 1;
+                currentPlaying = playList.size() - 1;
         }
         mediaPlayer.reset();
         try {
-            mediaPlayer.setDataSource(links.get(currentPlaying));
+            mediaPlayer.setDataSource(playList.get(currentPlaying).getLink());
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
