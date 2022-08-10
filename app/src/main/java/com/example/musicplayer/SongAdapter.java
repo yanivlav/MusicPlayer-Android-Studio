@@ -37,9 +37,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     public class SongViewHolder extends RecyclerView.ViewHolder {
         TextView nameTv;
-        TextView linkTv;
         ImageView picIv;
         ImageButton infoIB;
+
+        TextView linkTv;
 
         public SongViewHolder(View itemView) {
             super(itemView);

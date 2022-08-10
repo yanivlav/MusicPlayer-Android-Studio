@@ -76,10 +76,11 @@ public class AddSongActivity extends AppCompatActivity {
                 name.setText("");
                 link.setText("");
                 resultIv.setImageBitmap(null);
-
+//
                 Intent intent = new Intent(AddSongActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
-//                finish();
+
             }
         });
 

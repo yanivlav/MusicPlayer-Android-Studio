@@ -31,13 +31,31 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Song> playList;
 
+//    RecyclerView recyclerView;
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//    }
+
     @Override
     public void onResume(){
         super.onResume();
-        setPlaylist();
-        RecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        getPlaylist();
+//        updateData();
+
+//        setContentView(R.layout.activity_main);
+
+//        RecyclerView recyclerView = findViewById(R.id.recycler);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+//        recyclerView = findViewById(R.id.recycler);
+////        recyclerView.setHasFixedSize(true);
+////        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.getAdapter().notifyDataSetChanged();
+
 
     }
 
@@ -61,14 +79,16 @@ public class MainActivity extends AppCompatActivity {
             setPlaylist();
         }
 
+        final SongAdapter songAdapter = new SongAdapter(playList);
+
         Button addSong = findViewById(R.id.addSongButton);
         addSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,AddSongActivity.class);
+                finish();
                 startActivity(intent);
-//                updatePlaylist();
-                getPlaylist();
+                songAdapter.notifyDataSetChanged();
 
 
             }
@@ -76,8 +96,128 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//        final SongAdapter songAdapter = new SongAdapter(playList);
+        songAdapter.setListener(new SongAdapter.ISongListener() {
+
+            @Override
+            public void onInfoClicked(int position, View view) {
+                Intent intent = new Intent(MainActivity.this, SongInfo.class);
+                intent.putExtra("path",playList.get(position).getPhotoPath());
+                intent.putExtra("drawableUri",playList.get(position).getName());
+                intent.putExtra("name",playList.get(position).getName());
+                intent.putExtra("link",playList.get(position).getLink());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onSongClicked(int position, View view) {
+                Intent intent = new Intent(MainActivity.this,MusicServiceNew.class);
+                intent.putExtra("command","new_instance");
+                intent.putExtra("current",position);
+
+                stopService(intent);
+                startService(intent);
+            }
+
+            @Override
+            public void onSongLongClicked(int position, View view) {}
+        });
+
+        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END,
+                ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+
+            @Override // reorder songs
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                int fromPos = viewHolder.getAdapterPosition();
+                int toPos = target.getAdapterPosition();
+                Collections.swap(playList, fromPos, toPos);
+                setPlaylist();
+                recyclerView.getAdapter().notifyItemMoved(fromPos,toPos);
+                return true;
+            }
+
+
+            @Override //delete song
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Remove Song Confirmation").setMessage("Are you sure you want to remove that song?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                playList.remove(viewHolder.getAdapterPosition());
+                                setPlaylist();
+                                songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+//                                songAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                                songAdapter.notifyDataSetChanged();
+
+
+
+                            }
+
+                        })
+                        .show();
+
+            }
+        };
+
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.setAdapter(songAdapter);
+    }
+
+
+    public void setPlaylist() {
+        //write new object to the playlist
+        try {
+            FileOutputStream fos = openFileOutput("playList",MODE_PRIVATE);
+            ObjectOutputStream oos  = new ObjectOutputStream(fos);
+            oos.writeObject(playList);
+            oos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getPlaylist() {
+        //check if there is already a playlist created
+        try {
+            FileInputStream fis = openFileInput("playList");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            playList = (ArrayList<Song>)ois.readObject();
+            ois.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateData(){
+        RecyclerView recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//        recyclerView = findViewById(R.id.recycler);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        getPlaylist();
         final SongAdapter songAdapter = new SongAdapter(playList);
         songAdapter.setListener(new SongAdapter.ISongListener() {
 
@@ -136,8 +276,11 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+//                                songAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
                                 songAdapter.notifyDataSetChanged();
+
                             }
+
                         })
                         .show();
 
@@ -149,38 +292,6 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         recyclerView.setAdapter(songAdapter);
-    }
-
-
-    public void setPlaylist() {
-        //write new object to the playlist
-        try {
-            FileOutputStream fos = openFileOutput("playList",MODE_PRIVATE);
-            ObjectOutputStream oos  = new ObjectOutputStream(fos);
-            oos.writeObject(playList);
-            oos.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getPlaylist() {
-        //check if there is already a playlist created
-        try {
-            FileInputStream fis = openFileInput("playList");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            playList = (ArrayList<Song>)ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }
 
