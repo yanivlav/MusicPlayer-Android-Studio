@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 int toPos = target.getAdapterPosition();
                 Collections.swap(playList, fromPos, toPos);
                 updatePlaylist();
-                Toast.makeText(MainActivity.this, "Changes will be effected while playing:\npress any song to reload reordered playlist", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Changes will not be effected while playing:\npress any song to reload playlist", Toast.LENGTH_LONG).show();
 
                 recyclerView.getAdapter().notifyItemMoved(fromPos,toPos);
                 return false;
