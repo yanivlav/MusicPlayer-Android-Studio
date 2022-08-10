@@ -25,7 +25,6 @@ import java.util.Collections;
 
 //media
 import android.content.Intent;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        updatePlaylist();
+        setPlaylist();
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        uploadPlaylist();
+        getPlaylist();
 
         if (playList==null){
             playList = new ArrayList<>();
@@ -59,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
             playList.add(new Song("bob1", "http://www.syntax.org.il/xtra/bob.m4a",R.drawable.bob1));
             playList.add(new Song("bob2", "http://www.syntax.org.il/xtra/bob1.m4a",R.drawable.bob2));
             playList.add(new Song("bob3", "https://www.syntax.org.il/xtra/bob2.mp3",R.drawable.bob3));
-            updatePlaylist();
-//            uploadPlaylist();
-
+            setPlaylist();
         }
 
         Button addSong = findViewById(R.id.addSongButton);
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,AddSongActivity.class);
                 startActivity(intent);
 //                updatePlaylist();
-                uploadPlaylist();
+                getPlaylist();
 
 
             }
@@ -87,12 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onInfoClicked(int position, View view) {
                 Intent intent = new Intent(MainActivity.this, SongInfo.class);
-
-//                if (playList.get(position).get() != null)
-                    intent.putExtra("path",playList.get(position).getPhotoPath());
-//                else
-//                    intent.putExtra("path",playList.get(position).getPhotoPathInt());
-
+                intent.putExtra("path",playList.get(position).getPhotoPath());
                 intent.putExtra("drawableUri",playList.get(position).getName());
                 intent.putExtra("name",playList.get(position).getName());
                 intent.putExtra("link",playList.get(position).getLink());
@@ -101,34 +93,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSongClicked(int position, View view) {
-
-
-
-                ArrayList<String> names = new ArrayList<>();
-                ArrayList<String> links = new ArrayList<>();
-
-                for (int i = 0; i < playList.size(); i++ ){
-                    names.add(playList.get(i).getName());
-                    links.add(playList.get(i).getLink());
-                }
-
                 Intent intent = new Intent(MainActivity.this,MusicServiceNew.class);
-//                intent.putExtra("names",names);
-//                intent.putExtra("links",links);
                 intent.putExtra("command","new_instance");
-                //?
                 intent.putExtra("current",position);
-//                Toast.makeText(MainActivity.this,names.get(position), Toast.LENGTH_SHORT).show();
-//                updatePlaylist();
 
                 stopService(intent);
                 startService(intent);
             }
 
             @Override
-            public void onSongLongClicked(int position, View view) {
-
-            }
+            public void onSongLongClicked(int position, View view) {}
         });
 
         ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(
@@ -140,11 +114,9 @@ public class MainActivity extends AppCompatActivity {
                 int fromPos = viewHolder.getAdapterPosition();
                 int toPos = target.getAdapterPosition();
                 Collections.swap(playList, fromPos, toPos);
-                updatePlaylist();
-                Toast.makeText(MainActivity.this, "Changes will not be effected while playing:\npress any song to reload playlist", Toast.LENGTH_LONG).show();
-
+                setPlaylist();
                 recyclerView.getAdapter().notifyItemMoved(fromPos,toPos);
-                return false;
+                return true;
             }
 
 
@@ -157,25 +129,18 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 playList.remove(viewHolder.getAdapterPosition());
-                                updatePlaylist();
+                                setPlaylist();
                                 songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-//                                songAdapter.notifyDataSetChanged();
-
-
-
-
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                songAdapter.notifyDataSetChanged();//=============================
                                 songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-
+                                songAdapter.notifyDataSetChanged();
                             }
                         })
                         .show();
-//                updatePlaylist();
-//                uploadPlaylist();
+
             }
         };
 
@@ -187,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void updatePlaylist() {
+    public void setPlaylist() {
         //write new object to the playlist
         try {
             FileOutputStream fos = openFileOutput("playList",MODE_PRIVATE);
@@ -202,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void uploadPlaylist() {
+    public void getPlaylist() {
         //check if there is already a playlist created
         try {
             FileInputStream fis = openFileInput("playList");

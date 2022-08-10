@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@android:drawable/ic_media_play"
-            android:id="@+id/play_btn"/>
+            android:id="@+id/play_btn"
+            />
 
         <ImageButton
             android:layout_width="0dp"

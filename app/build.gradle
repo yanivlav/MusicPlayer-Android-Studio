@@ -8,7 +8,10 @@ android {
     defaultConfig {
         applicationId "com.example.musicplayer"
         minSdk 21
-        targetSdk 26
+//        minSdk 23
+        targetSdk 27
+//        targetSdk 28 // lost ability to play .m4a file extension
+//        targetSdk 32 // maybe need to bind? remoteLayouts disappeares
         versionCode 1
         versionName "1.0"
 
@@ -28,7 +31,7 @@ android {
 }
 
 dependencies {
-
+//    implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

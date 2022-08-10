@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -49,7 +48,7 @@ public class AddSongActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_song);
 
-        uploadPlaylist();
+        getPlaylist();
 
         resultIv = findViewById(R.id.click_image);
         name = findViewById(R.id.songName);
@@ -70,9 +69,9 @@ public class AddSongActivity extends AppCompatActivity {
                      song = new Song(nameS, linkS,photo.getAbsolutePath());
                 }
 
-                uploadPlaylist();
+                getPlaylist();
                 playList.add(song);
-                updatePlaylist();
+                setPlaylist();
 
                 name.setText("");
                 link.setText("");
@@ -170,7 +169,7 @@ public class AddSongActivity extends AppCompatActivity {
         return cursor.getString(idx);
     }
 
-    public void updatePlaylist() {
+    public void setPlaylist() {
         //write new object to the playlist
         try {
             FileOutputStream fos = openFileOutput("playList",MODE_PRIVATE);
@@ -185,7 +184,7 @@ public class AddSongActivity extends AppCompatActivity {
         }
     }
 
-    public void uploadPlaylist() {
+    public void getPlaylist() {
         //check if there is already a playlist created
         try {
             FileInputStream fis = openFileInput("playList");

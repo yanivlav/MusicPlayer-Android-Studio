@@ -31,12 +31,7 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
     MediaPlayer mediaPlayer = new MediaPlayer();
 
     ArrayList<Song> playList ;
-
-
-//    ArrayList<String> links;
-//    ArrayList<String> names ;
     int currentPlaying = 0;
-
     final int NOTIF_ID = 1;
 
     NotificationManager manager;
@@ -73,30 +68,36 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
 
         Intent playIntent = new Intent(this, MusicServiceNew.class);
         playIntent.putExtra("command","play");
-        PendingIntent playPendingIntent  = PendingIntent.getService(this,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        PendingIntent playPendingIntent  = PendingIntent.getService(this,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent playPendingIntent  = PendingIntent.getService(this,0,playIntent,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         remoteViews.setOnClickPendingIntent(R.id.play_btn,playPendingIntent);
 
         Intent pauseIntent = new Intent(this, MusicServiceNew.class);
         pauseIntent.putExtra("command","pause");
-        PendingIntent pausePendingIntent  = PendingIntent.getService(this,1,pauseIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent pausePendingIntent  = PendingIntent.getService(this,1,pauseIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pausePendingIntent  = PendingIntent.getService(this,1,pauseIntent,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         remoteViews.setOnClickPendingIntent(R.id.pause_btn,pausePendingIntent);
 
         Intent nextIntent = new Intent(this, MusicServiceNew.class);
         nextIntent.putExtra("command","next");
-        PendingIntent nextPendingIntent  = PendingIntent.getService(this,2,nextIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent nextPendingIntent  = PendingIntent.getService(this,2,nextIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent nextPendingIntent  = PendingIntent.getService(this,2,nextIntent,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         remoteViews.setOnClickPendingIntent(R.id.next_btn,nextPendingIntent);
 
         Intent prevIntent = new Intent(this, MusicServiceNew.class);
         prevIntent.putExtra("command","prev");
-        PendingIntent prevPendingIntent  = PendingIntent.getService(this,3,prevIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent prevPendingIntent  = PendingIntent.getService(this,3,prevIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent prevPendingIntent  = PendingIntent.getService(this,3,prevIntent,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         remoteViews.setOnClickPendingIntent(R.id.prev_btn,prevPendingIntent);
 
         Intent closeIntent = new Intent(this, MusicServiceNew.class);
         closeIntent.putExtra("command","close");
-        PendingIntent closePendingIntent  = PendingIntent.getService(this,4,closeIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent closePendingIntent  = PendingIntent.getService(this,4,closeIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent closePendingIntent  = PendingIntent.getService(this,4,closeIntent,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         remoteViews.setOnClickPendingIntent(R.id.close_btn,closePendingIntent);
 
-        uploadPlaylist();
+        getPlaylist();
 
         builder.setContent(remoteViews);
         startForeground(NOTIF_ID,builder.build());
@@ -112,16 +113,12 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
         switch (command) {
             case "new_instance":
                 if(!mediaPlayer.isPlaying()) {
-//                    links = intent.getStringArrayListExtra("links");
-//                    names = intent.getStringArrayListExtra("names");
                     currentPlaying = intent.getIntExtra("current",0);
                     String s = playList.get(currentPlaying).getName();
                     changeNotificationView(s);
                     try {
                         mediaPlayer.setDataSource(playList.get(currentPlaying).getLink());
                         mediaPlayer.prepareAsync();
-//                        uploadPlaylist();
-//                        changeNotificationView(names.get(currentPlaying));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -164,20 +161,20 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
         Toast.makeText(this, "Now Playing:\n" + s, Toast.LENGTH_SHORT).show();
         remoteViews.setTextViewText(R.id.song_title, s);
         builder.setContent(remoteViews);
-        String channelId = "channel_id";
-        String channelName = "Some channel";
-        if(Build.VERSION.SDK_INT>=26) {
-            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
-            manager.createNotificationChannel(channel);
-        }
-        NotificationManager mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        mNotificationManager.notify(NOTIF_ID, builder.build());
+//        String channelId = "channel_id";
+//        String channelName = "Some channel";
+//        if(Build.VERSION.SDK_INT>=26) {
+//            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
+//            manager.createNotificationChannel(channel);
+//        }
+        manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(NOTIF_ID, builder.build());
+//        NotificationManager mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+//        mNotificationManager.notify(NOTIF_ID, builder.build());
     }
 
     private void playSong(boolean isNext)  {
-
-        uploadPlaylist();
-
+        getPlaylist();
         if(isNext) {
             currentPlaying++;
             if (currentPlaying == playList.size())
@@ -200,12 +197,12 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
         playSong(true);
-    }
+    }//repeat option
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
         mediaPlayer.start();
-    }
+    }//shuffle option
 
     @Override
     public void onDestroy() {
@@ -218,7 +215,7 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
 
     }
 
-    public void updatePlaylist() {
+    public void setPlaylist() {
         //write new object to the playlist
         try {
             FileOutputStream fos = openFileOutput("playList",MODE_PRIVATE);
@@ -233,7 +230,7 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
         }
     }
 
-    public void uploadPlaylist() {
+    public void getPlaylist() {
         //check if there is already a playlist created
         try {
             FileInputStream fis = openFileInput("playList");
