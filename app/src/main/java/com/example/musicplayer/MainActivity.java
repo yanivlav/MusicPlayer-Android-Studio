@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             playList.add(new Song("eminem1", "https://audio.jukehost.co.uk/DnvjjljYd3CMKkqDYnkFAB4u0l0MSRas",R.drawable.eminem1));
             playList.add(new Song("eminem2", "https://audio.jukehost.co.uk/vV9P99y9bpcprhImcY70NP1pd9RBk1GG",R.drawable.eminem2));
             playList.add(new Song("eminem3", "https://audio.jukehost.co.uk/iKq1cijo2874lJ1i8z0YJp8Au90c3Gzi",R.drawable.eminem3));
+            playList.add(new Song("post_malone1", "https://audio.jukehost.co.uk/5OZSRlmWI3p517HlUANqQSfVn3mthQ4d",R.drawable.post_malone1));
             playList.add(new Song("bob1", "http://www.syntax.org.il/xtra/bob.m4a",R.drawable.bob1));
             playList.add(new Song("bob2", "http://www.syntax.org.il/xtra/bob1.m4a",R.drawable.bob2));
             playList.add(new Song("bob3", "https://www.syntax.org.il/xtra/bob2.mp3",R.drawable.bob3));
