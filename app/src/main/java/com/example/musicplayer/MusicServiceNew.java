@@ -161,7 +161,7 @@ public class MusicServiceNew extends Service implements MediaPlayer.OnPreparedLi
     }
 
     private void changeNotificationView(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Now Playing:\n" + s, Toast.LENGTH_SHORT).show();
         remoteViews.setTextViewText(R.id.song_title, s);
         builder.setContent(remoteViews);
         String channelId = "channel_id";

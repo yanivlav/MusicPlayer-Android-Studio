@@ -25,6 +25,7 @@ import java.util.Collections;
 
 //media
 import android.content.Intent;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -58,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
             playList.add(new Song("bob1", "http://www.syntax.org.il/xtra/bob.m4a",R.drawable.bob1));
             playList.add(new Song("bob2", "http://www.syntax.org.il/xtra/bob1.m4a",R.drawable.bob2));
             playList.add(new Song("bob3", "https://www.syntax.org.il/xtra/bob2.mp3",R.drawable.bob3));
-
-
             updatePlaylist();
+//            uploadPlaylist();
 
         }
 
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 int toPos = target.getAdapterPosition();
                 Collections.swap(playList, fromPos, toPos);
                 updatePlaylist();
+                Toast.makeText(MainActivity.this, "Changes will be effected while playing:\npress any song to reload reordered playlist", Toast.LENGTH_LONG).show();
 
                 recyclerView.getAdapter().notifyItemMoved(fromPos,toPos);
                 return false;
