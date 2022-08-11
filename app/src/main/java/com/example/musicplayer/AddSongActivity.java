@@ -100,9 +100,13 @@ public class AddSongActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // create an instance of the
                 // intent of the type image
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                //Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/"
+
 
                 // pass the constant to compare it
                 // with the returned requestCod
