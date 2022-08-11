@@ -33,7 +33,7 @@ public class AddSongActivity extends AppCompatActivity {
     ArrayList<Song> playList;
 
     EditText name, link;
-    Button save, cam, gallery;
+    Button save, cam, gallery,back;
     final int CAMERA_REQUEST = 1;
     final int SELECT_PICTURE = 200;
     final int WRITE_PERMISSION_REQUEST = 1;
@@ -53,11 +53,21 @@ public class AddSongActivity extends AppCompatActivity {
         resultIv = findViewById(R.id.click_image);
         name = findViewById(R.id.songName);
         link = findViewById(R.id.songlink);
-        save = findViewById(R.id.saveBtn);
-        save.setOnClickListener(new View.OnClickListener() {
 
+        back = findViewById(R.id.backBtn);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(AddSongActivity.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        save = findViewById(R.id.saveBtn);
+        save.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
                 String nameS = name.getText().toString();
                 String linkS = link.getText().toString();
 
