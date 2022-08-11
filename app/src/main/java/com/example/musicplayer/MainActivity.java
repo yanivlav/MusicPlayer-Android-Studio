@@ -156,15 +156,15 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Remove Song Confirmation").setMessage("Are you sure you want to remove that song?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.remove_song_confirmation).setMessage(R.string.r_u_sure)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 playList.remove(viewHolder.getAdapterPosition());
                                 setPlaylist();
                                 songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 //                                songAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());

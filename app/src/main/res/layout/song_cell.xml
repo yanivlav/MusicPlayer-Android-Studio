@@ -40,12 +40,12 @@
             android:id="@+id/songInfo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_baseline_info_24"
-            android:backgroundTint="@color/white"/>
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_baseline_info_24" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

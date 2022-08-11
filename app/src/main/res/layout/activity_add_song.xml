@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:hint="Enter song name"
+        android:hint="@string/enter_song_name"
         android:text=""
         android:textAlignment="center"
         android:textColor="@android:color/background_dark" />
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/songName"
         android:layout_marginTop="15dp"
-        android:hint="Enter song Link"
+        android:hint="@string/enter_song_link"
         android:text=""
         android:textAlignment="center"
         android:textColor="@android:color/background_dark"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/songlink"
-        android:text="Choose a photo:"
+        android:text="@string/choose_a_photo"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -60,32 +60,33 @@
         android:layout_marginTop="0dp"
         android:layout_below="@+id/txt1"
         android:orientation="horizontal"
-        android:id="@+id/linearBtns">
+        android:id="@+id/linearBtns"
+        android:gravity="center">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:id="@+id/cam_btn"
             android:layout_height="40dp"
-            android:layout_marginLeft="50dp"
-            android:text="Camera"
-            android:layout_gravity="center"
+            android:text="@string/camera"
             android:textSize="15sp"
             android:textStyle="bold"
             android:backgroundTint="@color/black"
+            android:gravity="center"
+            android:layout_marginEnd="20dp"
             />
 
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:id="@+id/gallery_btn"
-            android:layout_marginLeft="20dp"
             android:layout_height="40dp"
-            android:text="Gallery"
+            android:text="@string/gallery"
             android:backgroundTint="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
 
 
     </LinearLayout>
@@ -94,19 +95,22 @@
     <ImageView
         android:id="@+id/click_image"
         android:layout_width="350dp"
-        android:layout_height="370dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_below="@id/linearBtns"
         android:layout_centerInParent="true"
         android:layout_marginTop="25dp" />
-
+<!--    android:layout_width="350dp"-->
+<!--    android:layout_height="370dp"-->
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:backgroundTint="@color/black"
-        android:text="Save"
+        android:text="@string/save"
+        android:layout_above="@id/backBtn"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -114,10 +118,10 @@
         android:id="@+id/backBtn"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_above="@id/saveBtn"
+        android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:backgroundTint="@color/black"
-        android:text="back"
+        android:text="@string/back"
         android:textSize="15sp"
         android:textStyle="bold" />
 

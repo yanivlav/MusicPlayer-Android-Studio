@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MusicPlayer</string>
+    <string name="yes">כן</string>
+    <string name="camera">מצלמה</string>
+    <string name="gallery">גלריה</string>
+    <string name="save">שמור</string>
+    <string name="back">חזור</string>
+    <string name="choose_a_photo">בחר תמונה:</string>
+    <string name="enter_song_link">הכנס לינק פריט</string>
+    <string name="enter_song_name">הכנס שם פריט</string>
+    <string name="r_u_sure">האם אתה בטוח שברצונך למחוק פריט זה?</string>
+    <string name="remove_song_confirmation">אישור למחיקת פריט</string>
+    <string name="no">לא</string>
+    <string name="now_playing">Now Playing:\n</string>
+    <string name="song_name">שם פריט:</string>
+    <string name="song_link">לינק פריט:</string>
+</resources>
