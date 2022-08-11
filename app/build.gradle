@@ -9,7 +9,7 @@ android {
         applicationId "com.example.musicplayer"
         minSdk 21
 //        minSdk 23
-        targetSdk 28
+        targetSdk 27
 //        targetSdk 28 // lost ability to play .m4a file extension
 //        targetSdk 32 // maybe need to bind? remoteLayouts disappeares
         versionCode 1

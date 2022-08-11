@@ -73,9 +73,21 @@ public class MainActivity extends AppCompatActivity {
             playList.add(new Song("eminem2", "https://audio.jukehost.co.uk/vV9P99y9bpcprhImcY70NP1pd9RBk1GG",R.drawable.eminem2));
             playList.add(new Song("eminem3", "https://audio.jukehost.co.uk/iKq1cijo2874lJ1i8z0YJp8Au90c3Gzi",R.drawable.eminem3));
             playList.add(new Song("post_malone1", "https://audio.jukehost.co.uk/5OZSRlmWI3p517HlUANqQSfVn3mthQ4d",R.drawable.post_malone1));
-//            playList.add(new Song("bob1", "http://www.syntax.org.il/xtra/bob.m4a",R.drawable.bob1));
-//            playList.add(new Song("bob2", "http://www.syntax.org.il/xtra/bob1.m4a",R.drawable.bob2));
-//            playList.add(new Song("bob3", "https://www.syntax.org.il/xtra/bob2.mp3",R.drawable.bob3));
+            playList.add(new Song("post_malone__cooped_up_with_roddy_ricch", "https://audio.jukehost.co.uk/ajfudfsgSn7zseRxSXiEKJYPYTjknxLj",R.drawable.post_malone__cooped_up_with_roddy_ricch));
+            playList.add(new Song("acdc__thunderstruck", "https://audio.jukehost.co.uk/iPBLTU7lohqTK2H7SQBhd98xN518eWOo",R.drawable.acdc__thunderstruck));
+            playList.add(new Song("creedence_clearwater_revival__fortunate_son", "https://audio.jukehost.co.uk/oSfCKaoLb5DBKif3Krr0zPCoUiGxilAY",R.drawable.creedence_clearwater_revival__fortunate_son));
+            playList.add(new Song("drake_ft_21_savage__jimmy_cooks", "https://audio.jukehost.co.uk/ZOitsiDL38Q0sAMWCsNonBkfEpjF0A43",R.drawable.drake_ft_21_savage__jimmy_cooks));
+            playList.add(new Song("green_day__boulevard_of_broken_dreams", "https://audio.jukehost.co.uk/56HlQ68SbvP0hkyLyU6CsPcG1cfoEzhw",R.drawable.green_day__boulevard_of_broken_dreams));
+            playList.add(new Song("kodak_black__super_gremlin", "https://audio.jukehost.co.uk/6b2VNRquXrddkgXCzDWkxf1Qlt2QcqAe",R.drawable.kodak_black__super_gremlin));
+            playList.add(new Song("ram_jam_black_betty", "https://audio.jukehost.co.uk/aPoUBy6VSpsaSSEWOdHTW85ekmo7ZyVh",R.drawable.ram_jam_black_betty));
+            playList.add(new Song("the_jimi_hendrix_experience__all_along_the_watcht", "https://audio.jukehost.co.uk/XxqvS0i5C5Cj6UT46XgGOoJ92RBsJfis",R.drawable.the_jimi_hendrix_experience__all_along_the_watcht));
+            playList.add(new Song("nickelback_how_you_remind_me", "https://audio.jukehost.co.uk/wO5qpQjxUV16MM4rgjDxxaX7ZxIoReQB",R.drawable.nickelback_how_you_remind_me));
+
+
+
+            playList.add(new Song("bob1", "http://www.syntax.org.il/xtra/bob.m4a",R.drawable.bob1));
+            playList.add(new Song("bob2", "http://www.syntax.org.il/xtra/bob1.m4a",R.drawable.bob2));
+            playList.add(new Song("bob3", "https://www.syntax.org.il/xtra/bob2.mp3",R.drawable.bob3));
             setPlaylist();
         }
 
